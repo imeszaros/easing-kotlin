@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'maven-publish'
+}
+
+group 'com.github.imeszaros'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            freeCompilerArgs = ['-Xjvm-default=all']
+            jvmTarget = '11'
+        }
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.31'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.kotlin
+        }
+    }
+}
